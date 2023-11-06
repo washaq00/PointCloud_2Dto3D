@@ -4,9 +4,14 @@
 # from pathlib import Path
 # from configs.config_utils import CONFIG
 import os
+
+import torch.cuda
+
 from CustomDataset import find_classes, CustomImageDataset
 from torchvision import transforms
 from torch.utils.data import DataLoader
+
+from myfunctions import print_image
 
 
 # def parse_args():
@@ -18,7 +23,8 @@ from torch.utils.data import DataLoader
 
 
 def main():
-
+    
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     # if Path("helper_functions.py").is_file():
     #   print("helper_functions.py already exists, skipping download")
     # else:
@@ -26,8 +32,8 @@ def main():
     #   with open("helper_functions.py", "wb") as f:
     #     f.write(request.content)
 
-    BATCH_SIZE = 32
-    NUM_WORKERS = os.cpu_count()
+    BATCH_SIZE = 16
+    NUM_WORKERS = 2
 
     # implement Data Augmentation and Image Resizing
     train_transform = transforms.Compose([
@@ -40,31 +46,33 @@ def main():
         transforms.ToTensor()])
 
     train_dir = os.path.join(os.getcwd(), "data/train/")
-    # print(find_classes(train_dir))
-    test_dir = os.path.join(os.getcwd(), "data/test/")
+    print(find_classes(train_dir))
+    # test_dir = os.path.join(os.getcwd(), "data/test/")
 
     train_data = CustomImageDataset(img_dir=train_dir,  # target folder of images
                                     transform=train_transform)  # transforms to perform on labels (if necessary)
 
-    test_data = CustomImageDataset(img_dir=test_dir,
-                                   transform=test_transform)
+    # test_data = CustomImageDataset(img_dir=test_dir,
+    #                                transform=test_transform)
 
     print(f"test data {train_data}")
     class_names = train_data.classes
-    # print(class_names)
-    # img, label = train_data[0][0], train_data[0][1]
-    # print_image(img)
+    print(class_names)
+    img, label = train_data[6][0], train_data[6][1]
+    print_image(img)
 
     train_dataloader = DataLoader(dataset=train_data,
                                   batch_size=BATCH_SIZE,
                                   num_workers=NUM_WORKERS,
                                   shuffle=True)
 
-    test_dataloader = DataLoader(dataset=test_data,
-                                 batch_size=BATCH_SIZE,
-                                 num_workers=NUM_WORKERS,
-                                 shuffle=False)  # don't usually need to shuffle testing data
+    # test_dataloader = DataLoader(dataset=test_data,
+    #                              batch_size=BATCH_SIZE,
+    #                              num_workers=NUM_WORKERS,
+    #                              shuffle=False)  # don't usually need to shuffle testing data
 
+
+print(torch.cuda.is_available(), torch.cuda.device_count(), torch.cuda.current_device(), torch.cuda.get_device_name(0))
 
 if __name__ == '__main__':
     main()

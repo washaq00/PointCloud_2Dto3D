@@ -21,7 +21,7 @@ def find_classes(dir: str) -> Tuple[List[str],Dict[str, int]]:
 class CustomImageDataset(Dataset):
     def __init__(self, img_dir, transform =None):
         self.classes, self.classes_idx = find_classes(img_dir)
-        self.paths = list(pathlib.Path(img_dir).glob("*/*.png"))
+        self.paths = list(pathlib.Path(img_dir).glob("*/*.jpg"))
         self.transform = transform
 
     def load_image(self, index: int) -> Image.Image:
