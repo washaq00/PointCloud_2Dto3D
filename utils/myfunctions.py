@@ -4,7 +4,6 @@ import torch
 from time import perf_counter
 from tqdm.auto import tqdm #progress bar
 from torch.utils.data import DataLoader
-from helper_functions import plot_loss_curves
 
 
 def print_image(img):
@@ -96,7 +95,7 @@ def test_step(model: torch.nn.Module,
 
 def training_loop(model: torch.nn.Module,
                   train: torch.utils.data.DataLoader,
-                  test: torch.utils.data.DataLoader,
+                  # test: torch.utils.data.DataLoader,
                   optimizer,
                   loss_fn,
                   acc,
@@ -115,19 +114,19 @@ def training_loop(model: torch.nn.Module,
                                            loss_fn = loss_fn,
                                            acc = acc)
 
-        test_loss, test_acc = test_step(model=model,
-                                        test_data=test,
-                                        loss_fn=loss_fn,
-                                        acc=acc)
+        # test_loss, test_acc = test_step(model=model,
+        #                                 test_data=test,
+        #                                 loss_fn=loss_fn,
+        #                                 acc=acc)
 
-        print(f"Epoch: {epoch} train loss: {train_loss}, train acc: {train_acc}, test loss: {test_loss}, test acc: {test_acc}")
+        # print(f"Epoch: {epoch} train loss: {train_loss}, train acc: {train_acc}, test loss: {test_loss}, test acc: {test_acc}")
+        #
+        # results["train_loss"].append(train_loss)
+        # results["test_loss"].append(test_loss)
+        # results["train_acc"].append(train_acc)
+        # results["test_acc"].append(test_acc)
 
-        results["train_loss"].append(train_loss)
-        results["test_loss"].append(test_loss)
-        results["train_acc"].append(train_acc)
-        results["test_acc"].append(test_acc)
-
-        plot_loss_curves(results=results)
+        # plot_loss_curves(results=results)
 
     return results
 
