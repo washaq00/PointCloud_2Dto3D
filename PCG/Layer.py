@@ -39,6 +39,7 @@ class ResNetBlock(nn.Module):
         x = self.conv3(x)
         x = self.bn3(x)
 
+
         if self.identity_downsample is not None:
             identity = self.identity_downsample(identity)
 

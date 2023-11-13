@@ -6,12 +6,12 @@
 import time
 import os
 import torch.cuda
-from torch import nn
+from torch import nn, optim
 from utils.CustomDataset import find_classes, CustomImageDataset
 from torchvision import transforms
 from PCG.Encoder.ResNet import ResNet50
 from torch.utils.data import DataLoader
-from utils.myfunctions import training_loop
+from utils.train_stg1 import training_loop
 
 from utils.helper_functions import accuracy_fn
 
@@ -69,15 +69,26 @@ def main():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     start_time = time.time()
-    net = ResNet50(img_channels=1, num_classes=1000)
-    p = train_data[0][0].unsqueeze(dim=1)
-    print(p.size())
-    y = net(p)
+    model = ResNet50(img_channels=3, num_classes=len(train_data.classes))
+
+
+    loss_fn = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.01)
+
+    results = training_loop(model=model,
+                            train=train_dataloader,
+
+                            optimizer=optimizer,
+                            device=device,
+                            loss_fn=loss_fn,
+                            acc=accuracy_fn,
+                            epochs=5)
+
     end_time = time.time()
     elapsed_time = end_time - start_time
     print("Elapsed time: ", elapsed_time)
-    assert y.size() == torch.Size([BATCH_SIZE, 4])
-    print(y.size())
+    # assert results.size() == torch.Size([BATCH_SIZE, 4])
+    print(results)
 
 
 if __name__ == '__main__':
