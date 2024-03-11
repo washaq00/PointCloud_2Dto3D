@@ -1,5 +1,4 @@
 # import argparse
-# import requests
 # from torchvision.transforms import Lambda
 # from pathlib import Path
 # from configs.config_utils import CONFIG
