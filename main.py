@@ -11,6 +11,7 @@ from torchvision import transforms
 from PCG.Encoder.ResNet import ResNet50
 from torch.utils.data import DataLoader
 from utils.train_stg1 import training_loop
+from datasets import GetShapenetDataset
 
 from utils.helper_functions import accuracy_fn
 

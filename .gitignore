@@ -1,0 +1,13 @@
+
+#ignore virtual env
+venv_cuda/
+
+#ignore data files
+data/shapenet/ShapeNet_pointclouds
+#ignore data files
+data/shapenet/ShapeNetRendering
+#ignore data files
+data/shapenet/splits
+
+#ignore data files
+model/
