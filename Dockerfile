@@ -9,6 +9,7 @@ RUN apt-get update && \
         git \
         python3-pip
 
+RUN pwd
 
 RUN git clone https://github.com/washaq00/PointCloud_2Dto3D.git
 
