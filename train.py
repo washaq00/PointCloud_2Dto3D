@@ -25,8 +25,8 @@ torch.set_printoptions(profile='full')
 parser = argparse.ArgumentParser()
 parser.add_argument('--batchSize', type=int, default=32, help='input batch size')
 parser.add_argument('--workers', type=int, help='number of data loading workers', default=0)
-parser.add_argument('--nepoch', type=int, default=50, help='number of epochs to train for')
-# ALL: ['02691156','02828884','02933112','02958343','03001627','03636649','03211117','04090263','04256520','03691459','04379243','04401088','04530566']
+parser.add_argument('--nepoch', type=int, default=1, help='number of epochs to train for')
+# ALL: ['02691156','02828884','02933112','02958343','03001627','03636649','03211117d','04090263','04256520','03691459','04379243','04401088','04530566']
 parser.add_argument('--cats', default=['02691156', '02828884','03211117' ], type=str,
                     help='Category to train on : ["airplane":02691156, "bench":02828884,'
                          '"monitor":03211117')
